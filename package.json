@@ -1,25 +1,26 @@
 {
-  "name": "sodabot",
-  "version": "0.0.5",
+  "name": "hackybot",
+  "version": "0.1.0",
   "private": true,
   "author": "Datalets",
   "license": "MIT",
-  "description": "A hackathon helper",
+  "description": "A hacky hackathon helper",
   "repository": {
     "type": "git",
-    "url": "git://github.com/hackathons-ftw/sodabot.git"
+    "url": "git://github.com/hackathons-ftw/hackybot.git"
   },
   "keywords": [
     "hubot",
     "hackathon"
   ],
   "bugs": {
-    "url": "https://github.com/hackathons-ftw/sodabot/issues"
+    "url": "https://github.com/hackathons-ftw/hackybot/issues"
   },
   "dependencies": {
-    "hubot": "^3",
-    "coffeescript": "^1",
     "ckan": "git+ssh://git@github.com/loleg/ckan.js.git",
+    "coffeescript": "^1",
+    "hubot": "^3",
+    "hubot-hackernews": "^1.0.0",
     "hubot-help": "^1",
     "hubot-heroku-keepalive": "^1",
     "hubot-redis-brain": "^1",
