@@ -1,23 +1,46 @@
 {
   "name": "sodabot",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "private": true,
-  "author": "Oleg Lavrovsky <oleg@utou.ch>",
+  "author": "Datalets",
+  "license": "MIT",
   "description": "A hackathon helper",
-  "dependencies": {
-    "ckan": "git+ssh://git@github.com/okfn/ckan.js.git",
-    "hubot": "^2.19.0",
-    "hubot-help": "^0.2.0",
-    "hubot-heroku-keepalive": "^1.0.2",
-    "hubot-lets-chat": "0.0.7",
-    "hubot-redis-brain": "0.0.3",
-    "hubot-shell": "^1.0.2",
-    "hubot-slack": "^3.4.2",
-    "lodash": "^4.16.4",
-    "moment": "^2.17.1",
-    "tracer": "^0.8.7"
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/hackathons-ftw/sodabot.git"
   },
+  "keywords": [
+    "hubot",
+    "hackathon"
+  ],
+  "bugs": {
+    "url": "https://github.com/hackathons-ftw/sodabot/issues"
+  },
+  "dependencies": {
+    "hubot": "^3",
+    "coffeescript": "^1",
+    "ckan": "git+ssh://git@github.com/loleg/ckan.js.git",
+    "hubot-help": "^1",
+    "hubot-heroku-keepalive": "^1",
+    "hubot-redis-brain": "^1",
+    "hubot-shell": "^1",
+    "hubot-slack": "^4",
+    "lodash": "^4",
+    "moment": "^2",
+    "tracer": "^1"
+  },
+  "main": "index.coffee",
   "engines": {
-    "node": ">=0.10.x"
+    "node": ">= 0.12",
+    "npm": ">= 2.0.0"
+  },
+  "contributors": [
+    {
+      "name": "Oleg Lavrovsky",
+      "email": "oleg@datalets.ch"
+    }
+  ],
+  "scripts": {
+    "hubot": "bin/hubot"
   }
 }

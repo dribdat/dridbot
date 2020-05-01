@@ -17,6 +17,8 @@ clients = []
 clients.push new CKAN.Client "https://opendata.swiss/en"
 clients.push new CKAN.Client "https://data.stadt-zuerich.ch"
 clients[1].requestType = 'GET'
+
+NUM_RESULTS = 3
 DATA_REQUEST = "Please make a request in the #data channel!"
 # ...and it should go into a .json or .yml file. We know.
 
@@ -40,6 +42,9 @@ module.exports = (robot) ->
 
 		shown = total = 0
 		queryPortal = (client) ->
+			if not client or not client.endpoint
+				logdev.warn "No endpoint provided"
+				return
 			logdev.info "#{client.endpoint}"
 			portal = client.endpoint.split('//')[1]
 			portalname = portal.split('/')[0]
@@ -59,16 +64,16 @@ module.exports = (robot) ->
 					if json.result.count > 0
 						datasets = json.result.results
 						total += json.result.count
-						shownhere = Math.min(datasets.length, 3)
+						shownhere = Math.min(datasets.length, NUM_RESULTS)
 						shown += shownhere
 						latest = (
 							"> #{getDsTitle(ds.title)} - " + portalurl +
 							"#{ds.name}" for ds in datasets
 							)
-						latest = latest[0..2].join '\n'
+						latest = latest[0..shownhere-1].join '\n'
 						if shownhere
 							res.send "*#{portalname}*\n#{latest}"
-				if shownhere < 3
+				if shown < 10
 					if ++curClient < clients.length
 						queryPortal clients[curClient]
 					else if not shown
