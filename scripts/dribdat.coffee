@@ -12,12 +12,13 @@
 #   hubot set [name|location|host|website|community|call|start|finish]
 #   hubot quiet - Stop receiving hourly updates
 #   hubot time - Keep track of the time remaining till start/finish
-#   hubot all projects - List all documented projects at the current hackathon.
+#   hubot all - List all documented projects at the current hackathon.
 #   hubot find <query> - Search among all hackathon projects.
-#   hubot start project - Get help starting a project
-#   hubot update project - Publish project documentation
-#   hubot who are you - Some info on me and my makers
-#   hubot fix <something> - Notify the developers of a problem
+#   hubot start - Start your project with a Q&A session
+#   hubot recuit <role> - Find a collaborator for your team
+#   hubot whoami - See public info on me and my team
+#   hubot update - Publish project documentation
+#   hubot fix <something> - Notify the organizers of a problem
 
 crypto = require 'crypto'
 moment = require 'moment'
