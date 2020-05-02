@@ -24,7 +24,11 @@
     },
     "DRIBDAT_HOST": {
       "description": "Host name of the dribdat instance to connect to",
-      "value": "my-dribdat-instance.herokuapp.com"
+      "value": "https://my-dribdat-instance.herokuapp.com"
+    },
+    "HUBOT_HEROKU_KEEPALIVE_URL": {
+      "description": "Host name of the bot Heroku instance for the keepalive",
+      "value": "https://my-dridbot-instance.herokuapp.com/"
     }
   },
   "addons": [

@@ -15,11 +15,14 @@
 #   hubot all - List all documented projects at the current hackathon.
 #   hubot find <query> - Search among all hackathon projects.
 #   hubot start - Start your project with a Q&A session
-#   hubot recuit <role> - Find a collaborator for your team
+#   hubot recruit <role> - Find a collaborator for your team
 #   hubot level [up|down] <status> - Share the progress of your team
 #   hubot whoami - See public info on me and my team
 #   hubot update - Publish project documentation
 #   hubot fix <something> - Notify the organizers of a problem
+#
+# Author:
+#   sodacpr <ol@utou.ch>
 
 crypto = require 'crypto'
 moment = require 'moment'
@@ -268,10 +271,14 @@ module.exports = (robot) ->
     res.send chdata.roomTopic
 
   # Find a collaborator for your team
-  robot.respond /recruit (.*)/i, (res) ->
-    query = res.match[res.match.length-1].trim()
+  robot.respond /recruit ?(.*)?/i, (res) ->
+    query = res.match[res.match.length-1]
+    if query
+      query = query.trim()
+    else
+      query = "a teammate"
     # post this in the general feed and alert organizers
-    res.send ":dancers: OK, I will look for a teammate fo you!"
+    res.send ":dancers: OK, I will go look for #{query}!"
 
   # Share the progress of your team
   robot.respond /(level up|level down|up)(date )?(project)?(.*)/i, (res) ->

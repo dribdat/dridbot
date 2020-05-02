@@ -6,6 +6,7 @@ A.k.a. "Dr. ID" or just _dri_, is a chat bot built on the [Hubot][hubot] framewo
 
 There is functionality here for:
 
+- :+1: [generating starter ideas](scripts/ideagenerator.coffee)
 - :pig_nose: [tracking your hacking](scripts/dribdat.coffee)
 - :dancers: [checking hackernews](https://github.com/whoiskevin/hubot-hackernews#readme)
 - :zzz: [running healthy events](https://blog.datalets.ch/023/#hellosodabot)

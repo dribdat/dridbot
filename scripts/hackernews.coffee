@@ -31,8 +31,7 @@ module.exports = (robot) ->
               .get() (err, res, itembody) ->
                 hnnewsitem = JSON.parse itembody
                 hnurl = "https://news.ycombinator.com/item?id=#{hnnewsitem.id}"
+                msg.send "#{hnnewsitem.title} #{hnurl}"
                 if hnnewsitem.url
-                  msg.send "[#{hnnewsitem.title}](#{hnurl}) ([Article](#{hnnewsitem.url}))"
-                else
-                  msg.send "[#{hnnewsitem.title}](#{hnurl})"
+                  msg.send "Article: #{hnnewsitem.url}"
     return
