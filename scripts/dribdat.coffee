@@ -11,13 +11,12 @@
 #   hubot call - Start an open source call with your team
 #   hubot set [name|location|host|website|community|call|start|finish]
 #   hubot quiet - Stop receiving hourly updates
-#   hubot time left - How much time left until the hackathon starts or finishes?
+#   hubot time - Keep track of the time remaining till start/finish
 #   hubot all projects - List all documented projects at the current hackathon.
 #   hubot find <query> - Search among all hackathon projects.
 #   hubot start project - Get help starting a project
 #   hubot update project - Publish project documentation
 #   hubot who are you - Some info on me and my makers
-#   hubot questions - Find out how to document your project
 #   hubot fix <something> - Notify the developers of a problem
 
 crypto = require 'crypto'
@@ -137,7 +136,7 @@ module.exports = (robot) ->
   robot.respond /fix (.*)/, (res) ->
     query = res.match[0]
     logdev.warn query + ' #' + res.message.room
-    res.send "Thanks for letting us know. If you do not get a response from us soon, post to the wall of shame (or fork the code and send in a Pull Request!) at https://github.com/hackathons-ftw/sodabot/issues"
+    res.send "Thanks for letting us know. If you do not get a response from us soon, post to the wall of shame (or fork the code and send in a Pull Request!) at https://github.com/hackathons-ftw/hackybot/issues"
 
   robot.respond /(issue|bug|problem|who are you|what are you).*/i, (res) ->
     res.send "I am an alpha personal algoristant powered by a Hubot 2 engine - delighted to be with you today. :simple_smile: Did you find a bug or have an improvement to suggest? Write a note to my developers by saying `#{robot.name} fix <something>`"
@@ -282,6 +281,12 @@ module.exports = (robot) ->
       'hashtag': scrunchName(res.message.room),
       'key': SODABOT_KEY,
     })
+    if not DRIBDAT_URL
+      if levelup > 0
+        res.send("Cool! You've levelled up. Keep going.")
+      else
+        res.send("Struggling a bit? Look for a mentor. Then let me know you're ready with `hackybot level up`")
+      return
     # logdev.debug postdata
     robot.http(DRIBDAT_URL + "/api/project/push.json")
     .header('Content-Type', 'application/json')
@@ -333,11 +338,13 @@ module.exports = (robot) ->
     eventInfo = robot.brain.get('eventInfo')
     timeuntil = timeUntil eventInfo
     if timeuntil
-      quote = res.random hackyQuotes
-      res.send "> #{quote}\n\n#{eventInfo.name} #{timeuntil}"
+      if hackyQuotes
+        quote = res.random hackyQuotes
+        res.send "> #{quote}"
+      ends = moment(eventInfo.ends_at, DATE_FORMAT).format("hh:mm")
+      res.send "\n#{eventInfo.name} #{timeuntil} @ #{ends}"
     else
       res.send "#{eventInfo.name} is over. Hack again soon!"
-    return timeuntil
 
   # Cancel reminders
   cancelReminders = (res) ->
@@ -351,6 +358,9 @@ module.exports = (robot) ->
 
   # Answer if asked
   robot.respond /time( left)?\??/i, timeAndQuote
+  robot.respond /.*(tired|müde|exhausted|sleepy).*/i, (res) ->
+    timeAndQuote res
+    res.send "Close your eyes. Breathe in slowly. Take a nap."
 
   # Say hello and get started
   robot.respond /(ready|lets go|hello|hey|gruezi|grüzi|welcome|why are you here)/i, (res) ->
