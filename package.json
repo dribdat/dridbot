@@ -20,7 +20,6 @@
     "ckan": "*",
     "coffeescript": "^1",
     "hubot": "^3",
-    "hubot-hackernews": "^1.0.0",
     "hubot-help": "^1",
     "hubot-heroku-keepalive": "^1",
     "hubot-redis-brain": "^1",

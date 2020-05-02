@@ -1069,11 +1069,6 @@ https-proxy-agent@^2.2.0:
     agent-base "^4.3.0"
     debug "^3.1.0"
 
-hubot-hackernews@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/hubot-hackernews/-/hubot-hackernews-1.0.0.tgz#f1ba6963c48509c35dd4568ee250399846d6f0d0"
-  integrity sha1-8bppY8SFCcNd1FaO4lA5mEbW8NA=
-
 hubot-help@^1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/hubot-help/-/hubot-help-1.0.1.tgz#0a678e551d67c4317e222ff294b9583b8322fce7"

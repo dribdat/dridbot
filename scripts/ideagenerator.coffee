@@ -33,6 +33,15 @@ module.exports = (robot) ->
     object = hackyObjects.pop()
     subject = hackySubjects.pop()
     predicate = hackyPredicates.pop()
-    what = "**#{object}** that #{predicate} **#{subject}**"
-    res.send ":stars: You should make #{what}"
+    intro = ":stars: You should make "
+    res.send(
+      attachments: [
+        {
+          text: "#{intro} *#{object}* that #{predicate} *#{subject}*"
+          fallback: "#{intro} #{object} that #{predicate} #{subject}"
+          mrkdwn_in: ['text']
+          color: 'warning'
+        }
+      ]
+    )
     return
