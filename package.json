@@ -17,7 +17,7 @@
     "url": "https://github.com/hackathons-ftw/dridbot/issues"
   },
   "dependencies": {
-    "ckan": "git+ssh://git@github.com/loleg/ckan.js.git",
+    "ckan": "*",
     "coffeescript": "^1",
     "hubot": "^3",
     "hubot-hackernews": "^1.0.0",
