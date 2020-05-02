@@ -240,11 +240,11 @@ module.exports = (robot) ->
       setTimeout () ->
           chdata = helloChannel res.message.room
           return if chdata.hasPicked
-          res.send "Having trouble finding a name? Try http://www.ykombinator.com/"
+          res.send ":8ball: Looking for a name? Try http://www.dotomator.com/web20.html"
           setTimeout () ->
               chdata = helloChannel res.message.room
               return if chdata.hasPicked
-              res.send "Maybe that was not so helpful :laughing: Try this instead: http://www.namemesh.com/company-name-generator/"
+              res.send ":8ball: No luck yet? Try this too: https://crestonbunch.github.io/neural-namer-demo/#/"
             , 1000 * 60
         , 1000 * 10
       return
@@ -253,10 +253,10 @@ module.exports = (robot) ->
     teamname = scrunchName query
     roomname = scrunchName res.message.room
     if teamname != roomname
-      res.send "Great! You should now start a channel called ##{teamname} - " +
-        "then invite your team members to it, and repeat what you just said."
+      res.send "Great! Create or rename this channel to ##{teamname} - " +
+        "invite your team, and say 'start' one more time."
     else
-      res.send "Looks like your project has been set up. Say UP when you are ready to update."
+      res.send "Looks like your project has been set up. Say 'up' when you are ready to update."
 
   robot.topic (res) ->
     roomTopic = res.message.text
