@@ -32,8 +32,8 @@
   },
   "main": "index.coffee",
   "engines": {
-    "node": ">= 0.12",
-    "npm": ">= 2.0.0"
+    "node": "12.x",
+    "yarn": "1.x"
   },
   "contributors": [
     {
