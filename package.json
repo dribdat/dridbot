@@ -1,5 +1,5 @@
 {
-  "name": "hackybot",
+  "name": "dridbot",
   "version": "0.1.0",
   "private": true,
   "author": "Datalets",
@@ -7,14 +7,14 @@
   "description": "A hacky hackathon helper",
   "repository": {
     "type": "git",
-    "url": "git://github.com/hackathons-ftw/hackybot.git"
+    "url": "git://github.com/hackathons-ftw/dridbot.git"
   },
   "keywords": [
     "hubot",
     "hackathon"
   ],
   "bugs": {
-    "url": "https://github.com/hackathons-ftw/hackybot/issues"
+    "url": "https://github.com/hackathons-ftw/dridbot/issues"
   },
   "dependencies": {
     "ckan": "git+ssh://git@github.com/loleg/ckan.js.git",

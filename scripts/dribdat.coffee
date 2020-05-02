@@ -136,7 +136,7 @@ module.exports = (robot) ->
   robot.respond /fix (.*)/, (res) ->
     query = res.match[0]
     logdev.warn query + ' #' + res.message.room
-    res.send "Thanks for letting us know. If you do not get a response from us soon, post to the wall of shame (or fork the code and send in a Pull Request!) at https://github.com/hackathons-ftw/hackybot/issues"
+    res.send "Thanks for letting us know. If you do not get a response from us soon, post to the wall of shame (or fork the code and send in a Pull Request!) at https://github.com/hackathons-ftw/dridbot/issues"
 
   robot.respond /(issue|bug|problem|who are you|what are you).*/i, (res) ->
     res.send "I am an alpha personal algoristant powered by a Hubot 2 engine - delighted to be with you today. :simple_smile: Did you find a bug or have an improvement to suggest? Write a note to my developers by saying `#{robot.name} fix <something>`"
@@ -285,7 +285,7 @@ module.exports = (robot) ->
       if levelup > 0
         res.send("Cool! You've levelled up. Keep going.")
       else
-        res.send("Struggling a bit? Look for a mentor. Then let me know you're ready with `hackybot level up`")
+        res.send("Struggling a bit? Look for a mentor. Then let me know you're ready with `dridbot level up`")
       return
     # logdev.debug postdata
     robot.http(DRIBDAT_URL + "/api/project/push.json")

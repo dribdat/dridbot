@@ -1,12 +1,12 @@
-# hackybot
+# dridbot
 
-A chat bot built on the [Hubot][hubot] framework, useful for pepping up the experience for participants and organizers of hackathons.
+A.k.a. "Dr. ID" or just _dri_, is a chat bot built on the [Hubot][hubot] framework, useful for pepping up the experience for participants and organizers of hackathons.
 
 ![](https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.M55Dz6e9guchDuEpTfkBTwHaE8%26pid%3DApi&f=1)
 
 There is functionality here for:
 
-- [tracking the hacking](scripts/dribdat.coffee)
+- [tracking your hacking](scripts/dribdat.coffee)
 - [checking hackernews](https://github.com/whoiskevin/hubot-hackernews#readme)
 - [running healthy events](https://blog.datalets.ch/023/#hellosodabot)
 - [searching for open data](https://forum.schoolofdata.ch/t/introducing-sodabotnik/87/1)
