@@ -11,7 +11,7 @@
   "website": "https://dribdat.cc",
   "repository": "https://github.com/hackathons-ftw/dridbot",
   "buildpacks": [
-    { "url": "heroku/nodejs" },
+    { "url": "heroku/nodejs" }
   ],
   "env": {
     "HUBOT_SLACK_TOKEN": {
