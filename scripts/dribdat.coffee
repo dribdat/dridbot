@@ -91,6 +91,10 @@ module.exports = (robot) ->
     robot.brain.set 'eventInfo', eventInfo
     timeuntil = timeUntil eventInfo
     logdev.info "#{eventInfo.name} #{timeuntil}"
+  getRoomName = (robot, res) ->
+    if not robot.adapter.client
+      return res.message.room
+    return robot.adapter.client.rtm.dataStore.getChannelGroupOrDMById(res.message.room).name
 
   # Get and cache current event data
   if DRIBDAT_URL
@@ -154,9 +158,9 @@ module.exports = (robot) ->
     eventInfo = robot.brain.get('eventInfo')
     timeuntil = timeUntil eventInfo
     if timeuntil
-      res.send "You are taking part in **#{eventInfo.name}** on #{eventInfo.location}, hosted by #{eventInfo.hostname}. Visit [the website](#{eventInfo.webpage_url}) or join the [community](#{eventInfo.community_url}). The event #{timeuntil}."
+      res.send "You are taking part in #{eventInfo.name} on #{eventInfo.location}, hosted by #{eventInfo.hostname}. Visit the website #{eventInfo.webpage_url} or join the community #{eventInfo.community_url} to get started. The event #{timeuntil}."
     else
-      res.send "It seems like #{eventInfo.name} is over :( Let's hack again soon!"
+      res.send "It seems like #{eventInfo.name} is over :( Let's do a hackathon again soon!"
 
   # Show event videocall information
   robot.respond /call/i, (res) ->
@@ -236,7 +240,8 @@ module.exports = (robot) ->
     chdata = helloChannel res.message.room
     query = res.match[res.match.length-1].trim()
     if _.isEmpty(query)
-      res.send "You need to specify a name for your team. Say `start` again followed by a name, like this: `start #{res.message.room}`"
+      roomname = getRoomName robot, res
+      res.send "You need a name for your team. Say `start` again followed by a name, like this: `start #{roomname}`"
       setTimeout () ->
           chdata = helloChannel res.message.room
           return if chdata.hasPicked
@@ -251,16 +256,11 @@ module.exports = (robot) ->
     chdata.hasPicked = true
     saveChannel chdata
     teamname = scrunchName query
-    roomname = scrunchName res.message.room
-    if teamname != roomname
-      res.send "Great! Create or rename this channel to ##{teamname} - " +
-        "invite your team, and say 'start' one more time."
-    else
-      res.send "Looks like your project has been set up. Say 'up' when you are ready to update."
+    res.send "Great! We suggest you rename this channel to #team-#{teamname}. Time to invite your team! Say 'up' when you are ready to rock and roll."
 
   robot.topic (res) ->
-    roomTopic = res.message.text
     chdata = getChannel res.message.room
+    roomTopic = res.message.text
     chdata.roomTopic = roomTopic
     saveChannel chdata
     logdev.debug "Topic changed to #{roomTopic}"
@@ -291,11 +291,12 @@ module.exports = (robot) ->
     if levelupquery == 'level up' then levelup = 1
     if levelupquery == 'level down' then levelup = -1
     if !_.startsWith(query, 'http') then query = ''
+    roomname = getRoomName robot, res
     postdata = JSON.stringify({
       'autotext_url': query,
       'levelup': levelup,
       'summary': if roomTopic? then roomTopic else '',
-      'hashtag': scrunchName(res.message.room),
+      'hashtag': scrunchName(roomname),
       'key': DRIBDAT_APIKEY,
     })
     if not DRIBDAT_URL
@@ -327,9 +328,10 @@ module.exports = (robot) ->
         if not chdata.hasExplained
           chdata.hasExplained = true
           saveChannel chdata
+          roomname = getRoomName robot, res
           postdata = JSON.stringify({
             'longtext': query,
-            'hashtag': scrunchName(res.message.room),
+            'hashtag': scrunchName(roomname),
             'key': DRIBDAT_APIKEY,
           })
           # logdev.debug postdata
@@ -410,11 +412,14 @@ module.exports = (robot) ->
 
   # See public info on me and my team
   robot.respond /whoami/i, (res) ->
-    res.send "Here is what we know about your project:"
     chdata = getChannel res.message.room
+    roomname = getRoomName robot, res
+    # https://api.slack.com/methods/conversations.info
+    # channelcount = robot.adapter.client.rtm.dataStore.getChannelGroupOrDMById(res.message.room).num_members
+    res.send "Here is what we know about your project:"
     res.send ":basketball: You are team #{chdata.roomTopic}"
     res.send ":green_apple: Level 1 status"
-    res.send ":dancers: 3 team members"
+    res.send ":dancers: 3 team members in #{roomname}"
     res.send ":bookmark_tabs: 0 lines of documentation"
     res.send ":eyes: 13 code commits on GitHub"
     res.send(
