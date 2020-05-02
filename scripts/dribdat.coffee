@@ -16,6 +16,7 @@
 #   hubot find <query> - Search among all hackathon projects.
 #   hubot start - Start your project with a Q&A session
 #   hubot recuit <role> - Find a collaborator for your team
+#   hubot level [up|down] <status> - Share the progress of your team
 #   hubot whoami - See public info on me and my team
 #   hubot update - Publish project documentation
 #   hubot fix <something> - Notify the organizers of a problem
@@ -261,10 +262,18 @@ module.exports = (robot) ->
     saveChannel chdata
     logdev.debug "Topic changed to #{roomTopic}"
 
+  # What is the current topic
   robot.respond /(.*)topic\??/i, (res) ->
     chdata = getChannel res.message.room
     res.send chdata.roomTopic
 
+  # Find a collaborator for your team
+  robot.respond /recruit (.*)/i, (res) ->
+    query = res.match[res.match.length-1].trim()
+    # post this in the general feed and alert organizers
+    res.send ":dancers: OK, I will look for a teammate fo you!"
+
+  # Share the progress of your team
   robot.respond /(level up|level down|up)(date )?(project)?(.*)/i, (res) ->
     chdata = helloChannel res.message.room
     query = res.match[res.match.length-1].trim()
@@ -391,3 +400,14 @@ module.exports = (robot) ->
       res.send "Fine, I will leave you in peace. Let me know when you are `ready` to rumble!"
     else
       res.send "Did I say something? Did you say something?"
+
+  # See public info on me and my team
+  robot.respond /whoami/i, (res) ->
+    res.send "Here is what we know about your project:"
+    chdata = getChannel res.message.room
+    res.send "- :basketball: You are team #{chdata.roomTopic}"
+    res.send "- :green_apple Level 1 status"
+    res.send "- :dancers: 2 team members"
+    res.send "- :eyes: 13 code commits on GitHub"
+    res.send "- :bookmark_tabs: 0 lines of documentation"
+    timeAndQuote res
