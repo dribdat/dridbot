@@ -18,7 +18,7 @@
       "description": "A token for connecting this bot to Slack",
       "value": "xoxb-..."
     },
-    "SODABOT_KEY": {
+    "DRIBDAT_APIKEY": {
       "description": "A secret key for connecting to the dribdat API",
       "value": ""
     },

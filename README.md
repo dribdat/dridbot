@@ -6,10 +6,10 @@ A.k.a. "Dr. ID" or just _dri_, is a chat bot built on the [Hubot][hubot] framewo
 
 There is functionality here for:
 
-- [tracking your hacking](scripts/dribdat.coffee)
-- [checking hackernews](https://github.com/whoiskevin/hubot-hackernews#readme)
-- [running healthy events](https://blog.datalets.ch/023/#hellosodabot)
-- [searching for open data](https://forum.schoolofdata.ch/t/introducing-sodabotnik/87/1)
+- :pig_nose: [tracking your hacking](scripts/dribdat.coffee)
+- :dancers: [checking hackernews](https://github.com/whoiskevin/hubot-hackernews#readme)
+- :zzz: [running healthy events](https://blog.datalets.ch/023/#hellosodabot)
+- :eyes: [searching for open data](https://forum.schoolofdata.ch/t/introducing-sodabotnik/87/1)
 
 ## Developer notes
 
@@ -29,18 +29,18 @@ This project can be deployed to any server capable of serving Node.js applicatio
 You will be asked to enter the following variables:
 
 * `DRIBDAT_HOST` - (optional) URL to where the [dribdat site](https://dribdat.cc) is hosted
-* `SODABOT_KEY` - (optional) a secret key for connecting to the dribdat API
+* `DRIBDAT_APIKEY` - (optional) a secret key for connecting to the dribdat API
 * `HUBOT_SLACK_TOKEN` - a key for [connecting to Slack](https://slack.dev/hubot-slack/)
 
 Other Hubot tokens are available for connecting to other chat platforms. See below.
 
-### Running sodabot Locally
+### Running dridbot Locally
 
 You can test your hubot by running the following, however some plugins will not
 behave as expected unless the [environment variables](#configuration) they rely
 upon have been set.
 
-You can start sodabot locally by running:
+You can start dridbot locally by running:
 
     npm run hubot
 
@@ -51,12 +51,12 @@ Or:
 You'll see some start up output and a prompt:
 
     [Sat Feb 28 2015 12:38:27 GMT+0000 (GMT)] INFO Using default redis on localhost:6379
-    sodabot>
+    dridbot>
 
-Then you can interact with sodabot by typing commands like `sodabot help`.
+Then you can interact with dridbot by typing commands like `dridbot help`.
 
-    sodabot> sodabot help
-    sodabot help - Displays all of the help commands that sodabot knows about.
+    dridbot> dridbot help
+    dridbot help - Displays all of the help commands that dridbot knows about.
     ...
 
 ### Configuration

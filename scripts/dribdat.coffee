@@ -31,7 +31,7 @@ logger = require('tracer').dailyfile(
 
 DATE_FORMAT = "ddd, D MMM YYYY hh:mm:ss"
 DRIBDAT_URL = process.env.DRIBDAT_HOST or ''
-SODABOT_KEY = process.env.SODABOT_KEY or ''
+DRIBDAT_APIKEY = process.env.DRIBDAT_APIKEY or ''
 DEFAULT_SRC = ""
 
 scrunchName = (nm) ->
@@ -279,7 +279,7 @@ module.exports = (robot) ->
       'levelup': levelup,
       'summary': if roomTopic? then roomTopic else '',
       'hashtag': scrunchName(res.message.room),
-      'key': SODABOT_KEY,
+      'key': DRIBDAT_APIKEY,
     })
     if not DRIBDAT_URL
       if levelup > 0
@@ -313,7 +313,7 @@ module.exports = (robot) ->
           postdata = JSON.stringify({
             'longtext': query,
             'hashtag': scrunchName(res.message.room),
-            'key': SODABOT_KEY,
+            'key': DRIBDAT_APIKEY,
           })
           # logdev.debug postdata
           robot.http(DRIBDAT_URL + "/api/project/push.json")
