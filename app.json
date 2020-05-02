@@ -1,0 +1,35 @@
+{
+  "name": "dridbot",
+  "logo": "https://raw.githubusercontent.com/hackathons-ftw/dribdat/master/dribdat/static/img/badge-black.png",
+  "description": "An open source chatbot for data-driven team collaboration, such as Hackathons.",
+  "keywords": [
+    "teambuilding",
+    "hackathon",
+    "collaboration",
+    "chatbot"
+  ],
+  "website": "https://dribdat.cc",
+  "repository": "https://github.com/hackathons-ftw/dridbot",
+  "buildpacks": [
+    { "url": "heroku/nodejs" },
+  ],
+  "env": {
+    "HUBOT_SLACK_TOKEN": {
+      "description": "A token for connecting this bot to Slack",
+      "value": "xoxb-..."
+    },
+    "SODABOT_KEY": {
+      "description": "A secret key for connecting to the dribdat API",
+      "value": ""
+    },
+    "DRIBDAT_HOST": {
+      "description": "Host name of the dribdat instance to connect to",
+      "value": "my-dribdat-instance.herokuapp.com"
+    }
+  },
+  "addons": [
+    {
+      "plan": "heroku-redis"
+    }
+  ]
+}

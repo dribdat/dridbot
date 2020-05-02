@@ -20,6 +20,20 @@ configured to be deployed on [Heroku][heroku] to get you up and running quickly.
 [hubot]: http://hubot.github.com
 [generator-hubot]: https://github.com/github/generator-hubot
 
+### Quickstart
+
+This project can be deployed to any server capable of serving Node.js applications, for example in the [Heroku](http://heroku.com) cloud:
+
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+
+You will be asked to enter the following variables:
+
+* `DRIBDAT_HOST` - (optional) URL to where the [dribdat site](https://dribdat.cc) is hosted
+* `SODABOT_KEY` - (optional) a secret key for connecting to the dribdat API
+* `HUBOT_SLACK_TOKEN` - a key for [connecting to Slack](https://slack.dev/hubot-slack/)
+
+Other Hubot tokens are available for connecting to other chat platforms. See below.
+
 ### Running sodabot Locally
 
 You can test your hubot by running the following, however some plugins will not
