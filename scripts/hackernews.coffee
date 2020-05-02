@@ -31,5 +31,5 @@ module.exports = (robot) ->
               hnurl = "https://news.ycombinator.com/item?id=#{hnnewsitem.id}"
               msg.send "#{hnnewsitem.title} #{hnurl}"
               if hnnewsitem.url
-                msg.send "Article: #{hnnewsitem.url}"
+                msg.send "#{hnnewsitem.url}"
     return

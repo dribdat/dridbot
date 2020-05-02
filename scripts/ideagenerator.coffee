@@ -33,7 +33,7 @@ module.exports = (robot) ->
     object = hackyObjects.pop()
     subject = hackySubjects.pop()
     predicate = hackyPredicates.pop()
-    intro = ":stars: You should make "
+    intro = ":stars: You should make"
     res.send(
       attachments: [
         {

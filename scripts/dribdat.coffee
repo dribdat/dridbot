@@ -412,9 +412,18 @@ module.exports = (robot) ->
   robot.respond /whoami/i, (res) ->
     res.send "Here is what we know about your project:"
     chdata = getChannel res.message.room
-    res.send "- :basketball: You are team #{chdata.roomTopic}"
-    res.send "- :green_apple Level 1 status"
-    res.send "- :dancers: 2 team members"
-    res.send "- :eyes: 13 code commits on GitHub"
-    res.send "- :bookmark_tabs: 0 lines of documentation"
+    res.send ":basketball: You are team #{chdata.roomTopic}"
+    res.send ":green_apple: Level 1 status"
+    res.send ":dancers: 3 team members"
+    res.send ":bookmark_tabs: 0 lines of documentation"
+    res.send ":eyes: 13 code commits on GitHub"
+    res.send(
+      attachments: [
+        {
+          text: "#_Say `@dri recruit` for help finding the 4th team member, or `@dri level up` when ready!_"
+          fallback: "Let me know if you need help with @dri help"
+          mrkdwn_in: ['text']
+        }
+      ]
+    )
     timeAndQuote res
