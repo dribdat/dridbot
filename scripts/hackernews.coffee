@@ -16,10 +16,11 @@
 #
 # Author:
 #   WhoIsKevin <kbrown@whoiskevin.com>
+#   loleg <loleg@hotmail.com> (fixed a bug, changed to showstories)
 
 module.exports = (robot) ->
   robot.respond /(hn|hackernews)/i, (msg) ->
-    msg.http("https://hacker-news.firebaseio.com/v0/topstories.json")
+    msg.http("https://hacker-news.firebaseio.com/v0/showstories.json")
       .header('Accept', 'application/json')
       .get() (err, res, body) ->
         hnnewslist = JSON.parse body
