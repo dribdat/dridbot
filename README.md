@@ -4,13 +4,31 @@ A.k.a. "Dr. ID" or just _dri_, is a chat bot built on the [Hubot][hubot] framewo
 
 ![](https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.M55Dz6e9guchDuEpTfkBTwHaE8%26pid%3DApi&f=1)
 
-There is functionality here for:
+The bot currently has the following talents:
 
-- :+1: [generating starter ideas](scripts/ideagenerator.coffee)
-- :pig_nose: [tracking your hacking](scripts/dribdat.coffee)
-- :dancers: [checking hackernews](https://github.com/whoiskevin/hubot-hackernews#readme)
-- :zzz: [running healthy events](https://blog.datalets.ch/023/#hellosodabot)
-- :eyes: [searching for open data](https://forum.schoolofdata.ch/t/introducing-sodabotnik/87/1)
+:+1: [generating starter ideas](scripts/ideagenerator.coffee)
+
+Using the latest techniques in algorithmic design fiction and an extensive database of killer app ideas, your next genius idea is a keystroke away.
+
+:pig_nose: [tracking your hacking](scripts/dribdat.coffee)
+
+As a standalone tool or connected to [} dribdat {](https://github.com/hackathons-ftw/dribdat), the world's most powerful open source hackathon analytics platform, this bot can give you insights before you even realise you need them.
+
+:dancers: [checking hacker news](https://github.com/whoiskevin/hubot-hackernews#readme)
+
+The ultimate goal of any hackathon project is to land a top spot on Show HN, so we've incorporated it right into your team channel. Work hard and climb higher!
+
+:eyes: [searching for resources](https://forum.schoolofdata.ch/t/introducing-sodabotnik/87/1)
+
+Whether it's open source boilerplates to jump right into your coding, or open data resources for that real-world impact that impresses the jury, you are looking at the most advanced hackathon toolbox out there, period.
+
+:green_apple: [running healthier events](https://blog.datalets.ch/023/#hellosodabot)
+
+Last but not least, we are very conscious of hackathons sometimes having the reputation of a toxic environment. For your body, for your mind, for hackathons on- and off-line, we have a range of health advice built right in.
+
+[![](https://i.vimeocdn.com/video/887723308.jpg?mw=450&mh=260)](https://vimeo.com/414580564)
+
+:point_up: **The Pitch**: watch this three minute video for a weird & wacky intro.
 
 ## Developer notes
 
