@@ -50,6 +50,7 @@ You will be asked to enter the following variables:
 * `DRIBDAT_HOST` - (optional) URL to where the [dribdat site](https://dribdat.cc) is hosted
 * `DRIBDAT_APIKEY` - (optional) a secret key for connecting to the dribdat API
 * `HUBOT_SLACK_TOKEN` - a key for [connecting to Slack](https://slack.dev/hubot-slack/)
+* `HUBOT_HEROKU_KEEPALIVE_URL` - put the URL here of the bot itself (e.g. https://my-dridbot.herokuapp.com/ with trailing slash)
 
 Other Hubot tokens are available for connecting to other chat platforms. See below.
 
