@@ -27,6 +27,7 @@
     "hubot-slack": "^4",
     "lodash": "^4",
     "moment": "^2",
+    "papaparse": "^5.2.0",
     "tracer": "^1"
   },
   "main": "index.coffee",
