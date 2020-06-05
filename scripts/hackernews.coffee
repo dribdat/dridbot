@@ -9,7 +9,7 @@
 #
 # Commands:
 #   hubot hackernews - Get the top 5 items from Hacker News
-#   hubot hn - A shorter form of the above
+#   hubot hn - A shorter form of hubot hackernews
 #
 # Notes:
 #   None
