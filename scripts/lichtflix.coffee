@@ -29,7 +29,7 @@ module.exports = (robot) ->
         msg.send(
           attachments: [
             {
-              text: "**#{item.title}** (#{item.year})\n> #{item.text_en}\n![](http://xray876.server4you.net/archiv.lichtspiel/getObject.aspx?objID=2007)"
+              text: "#{item.title} (#{item.year})\n_#{item.text_en}_\nhttp://xray876.server4you.net/archiv.lichtspiel/getObject.aspx?objID=2007"
               fallback: "#{item.title} (#{item.year})"
               mrkdwn_in: ['text']
             }
