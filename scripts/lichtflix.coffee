@@ -29,10 +29,13 @@ module.exports = (robot) ->
         msg.send(
           attachments: [
             {
-              text: "#{item.title} (#{item.year})\n_#{item.text_en}_\nhttp://xray876.server4you.net/archiv.lichtspiel/getObject.aspx?objID=2007"
+              text: "#{item.title} (#{item.year})\n_#{item.text_en}_"
               fallback: "#{item.title} (#{item.year})"
               mrkdwn_in: ['text']
             }
           ]
         )
+        setTimeout () ->
+          msg.send ":movie_camera: Enjoy this finest reel this evening only at the Lichtspiel!"
+        , 1000 * 10
     return
