@@ -33,6 +33,17 @@ recommend = (movie_type, msg) ->
         msg.send "Here's a short description: "
         msg.send "#{recommendation.text_en}"
 
+send_attachment = (item, msg) ->
+    msg.send(
+      attachments: [
+        {
+          text: "#{item.title} (#{item.year})\n_#{item.text_en}_"
+          fallback: "#{item.title} (#{item.year})"
+          mrkdwn_in: ['text']
+        }
+      ]
+    )
+
 module.exports = (robot) ->
   robot.respond /I want to watch a (.*)/i, (msg) ->
 
@@ -55,21 +66,20 @@ module.exports = (robot) ->
         msg.reply "I am familiar with #{movie_types.join(', ')}"
 
   robot.respond /(flix)/i, (msg) ->
-    msg.http("https://raw.githubusercontent.com/schoolofdata-ch/lichtspiel-films/master/data/sample.csv")
-      .header('Accept', 'application/csv')
-      .get() (err, res, body) ->
-        films = Papa.parse body, { header: true }
-        item = films.data[Math.floor Math.random() * films.data.length]
-        # console.log(item)
-        msg.send(
-          attachments: [
-            {
-              text: "#{item.title} (#{item.year})\n_#{item.text_en}_"
-              fallback: "#{item.title} (#{item.year})"
-              mrkdwn_in: ['text']
-            }
-          ]
-        )
+        if films is null
+            msg.http(lichtspiel_url)
+              .header('Accept', 'application/csv')
+              .get() (err, res, body) ->
+                films = Papa.parse body, { header: true }
+
+                item = films.data[Math.floor Math.random() * films.data.length]
+                console.log(item)
+                send_attachment item, msg
+        else
+            item = films.data[Math.floor Math.random() * films.data.length]
+            console.log(item)
+            send_attachment item, msg
+
         setTimeout () ->
           msg.send ":movie_camera: Enjoy this finest reel this evening only at the Lichtspiel!"
         , 1000 * 10
