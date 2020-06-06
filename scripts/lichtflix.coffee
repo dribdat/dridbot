@@ -33,13 +33,15 @@ fetch_films = (msg) ->
             films = Papa.parse body, { header: true }
             func msg
 
+default_type = "dummy"
+default_date = -1
 
-movie_type = null
-max_date = null
+movie_type = default_type
+max_date = default_date
 
 reset_variables = () ->
-    movie_type = null
-    max_date = null
+    movie_type = default_type
+    max_date = default_date
 
 send_attachment = (msg, item) ->
     msg.send(
@@ -68,21 +70,25 @@ recommend = (msg) ->
 
     filtered_films = films.data
 
-    if movie_type is not null
+    if movie_type != default_type
         filtered_films = filtered_films.filter((item) -> item.type == movie_type)
-    if max_date is not null
-        filtered_films = filtered_films.filter((item) -> item.year < max_date)
 
-    recommendation = filtered_films[Math.floor Math.random() * filtered_films.length]
-    msg.send "I can recommend \"#{recommendation.title}\"\n"
+    if max_date != default_date
+        filtered_films = filtered_films.filter((item) -> parseInt(item.year) < max_date)
 
-    # some dates are NaN or have typos/strange values
-    if recommendation.year > 1200
-        msg.send "It came out in #{recommendation.year}\n"
+    if filtered_films.length > 0
+        recommendation = filtered_films[Math.floor Math.random() * filtered_films.length]
+        msg.send "I can recommend \"#{recommendation.title}\"\n"
 
-    if recommendation.text_en.length > 0
-        msg.send "Here's a short description: "
-        msg.send "#{recommendation.text_en}"
+        # some dates are NaN or have typos/strange values
+        if recommendation.year > 1200
+            msg.send "It came out in #{recommendation.year}\n"
+
+        if recommendation.text_en.length > 0
+            msg.send "Here's a short description: "
+            msg.send "#{recommendation.text_en}"
+    else
+        msg.send "I actually don't have any information on movies that match this description"
 
     reset_variables()
 
@@ -92,7 +98,7 @@ pick_production_date = (msg, dialog) ->
               (I want a movie made before 1980, for example)"
 
     dialog.addChoice /(18|19|20)([0-9]{2})/, (res) ->
-        max_date = res.match[0]
+        max_date = parseInt(res.match[0])
         msg.send "And you want a movie made before #{max_date}"
         recommend msg
 
