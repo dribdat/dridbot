@@ -25,6 +25,15 @@ movie_types = ["Dokumentar", "Trickfilm", "Scopitone", "Spielfilm",
 "Musikclip", "Experimentalfilm", "Testfilm", "Tonband", "TV"]
 lichtspiel_url = "https://raw.githubusercontent.com/schoolofdata-ch/lichtspiel-films/master/data/lichtspiel.csv"
 
+fetch_films = (msg) ->
+    (func) ->
+        msg.http(lichtspiel_url)
+          .header('Accept', 'application/csv')
+          .get() (err, res, body) ->
+            films = Papa.parse body, { header: true }
+            func msg
+
+
 movie_type = null
 max_date = null
 
@@ -32,7 +41,31 @@ reset_variables = () ->
     movie_type = null
     max_date = null
 
+send_attachment = (msg, item) ->
+    msg.send(
+      attachments: [
+        {
+          text: "#{item.title} (#{item.year})\n_#{item.text_en}_"
+          fallback: "#{item.title} (#{item.year})"
+          mrkdwn_in: ['text']
+        }
+      ]
+    )
+
+flix = (msg) ->
+    if films is null
+        (fetch_films msg) ((msg) -> flix msg)
+        return
+
+    item = films.data[Math.floor Math.random() * films.data.length]
+    console.log(item)
+    send_attachment msg, item
+
 recommend = (msg) ->
+    if films is null
+        (fetch_films msg) ((msg) -> recommend msg)
+        return
+
     filtered_films = films.data
 
     if movie_type is not null
@@ -53,16 +86,6 @@ recommend = (msg) ->
 
     reset_variables()
 
-send_attachment = (msg, item) ->
-    msg.send(
-      attachments: [
-        {
-          text: "#{item.title} (#{item.year})\n_#{item.text_en}_"
-          fallback: "#{item.title} (#{item.year})"
-          mrkdwn_in: ['text']
-        }
-      ]
-    )
 
 pick_production_date = (msg, dialog) ->
     msg.send "Pick a date for the latest year of production\n
@@ -91,6 +114,10 @@ pick_movie_type = (msg, dialog) ->
         pick_movie_type switchboard, msg
 
 start_recommendation = (switchboard, msg) ->
+    if films is null
+        (fetch_films msg) ((msg) -> start_recommendation switchboard, msg)
+        return
+
     dialog = switchboard.startDialog msg
     pick_movie_type msg, dialog
 
@@ -100,15 +127,7 @@ module.exports = (robot) ->
 
   robot.respond /(I'm|I am) (looking|searching) for a movie( recommendation|.*)/i, (msg) ->
     msg.send "Great, I'll ask a few questions to determine a recommendation"
-    if films is null
-        msg.http(lichtspiel_url)
-          .header('Accept', 'application/csv')
-          .get() (err, res, body) ->
-            films = Papa.parse body, { header: true }
-            start_recommendation switchboard, msg
-
-    else
-        start_recommendation switchboard, msg
+    start_recommendation switchboard, msg
 
   robot.respond /I (want|would like) to watch a (.*)/i, (msg) ->
 
@@ -116,15 +135,7 @@ module.exports = (robot) ->
     if movie_type in movie_types
         msg.reply "So, you want to watch a #{movie_type}?\n"
 
-        # Fetch the data if it hasn't been fetched yet
-        if films is null
-            msg.http(lichtspiel_url)
-              .header('Accept', 'application/csv')
-              .get() (err, res, body) ->
-                films = Papa.parse body, { header: true }
-                recommend msg
-        else
-            recommend msg
+        recommend msg
 
     else
         msg.reply "Sorry, I'm not familiar with \"#{movie_type}\""
@@ -133,19 +144,8 @@ module.exports = (robot) ->
     reset_variables()
 
   robot.respond /(flix)/i, (msg) ->
-        if films is null
-            msg.http(lichtspiel_url)
-              .header('Accept', 'application/csv')
-              .get() (err, res, body) ->
-                films = Papa.parse body, { header: true }
 
-                item = films.data[Math.floor Math.random() * films.data.length]
-                console.log(item)
-                send_attachment msg, item
-        else
-            item = films.data[Math.floor Math.random() * films.data.length]
-            console.log(item)
-            send_attachment msg, item
+        flix msg
 
         setTimeout () ->
           msg.send ":movie_camera: Enjoy this finest reel this evening only at the Lichtspiel!"
