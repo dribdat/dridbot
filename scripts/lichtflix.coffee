@@ -47,7 +47,9 @@ send_attachment = (item, msg) ->
 module.exports = (robot) ->
   robot.respond /I want to watch a (.*)/i, (msg) ->
 
-    movie_type = msg.match[1]
+  robot.respond /I (want|would like) to watch a (.*)/i, (msg) ->
+
+    movie_type = msg.match[2]
     if movie_type in movie_types
         msg.reply "So, you want to watch a #{movie_type}?\n"
 
