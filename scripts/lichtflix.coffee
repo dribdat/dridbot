@@ -17,6 +17,7 @@
 #   loleg <loleg@hotmail.com>
 
 Papa = require 'papaparse'
+Conversation = require 'hubot-conversation'
 
 films = null
 movie_types = ["Dokumentar", "Trickfilm", "Scopitone", "Spielfilm",
@@ -24,16 +25,35 @@ movie_types = ["Dokumentar", "Trickfilm", "Scopitone", "Spielfilm",
 "Musikclip", "Experimentalfilm", "Testfilm", "Tonband", "TV"]
 lichtspiel_url = "https://raw.githubusercontent.com/schoolofdata-ch/lichtspiel-films/master/data/lichtspiel.csv"
 
-recommend = (movie_type, msg) ->
-    filtered_films = films.data.filter((item) -> item.type == movie_type)
-    recommendation = filtered_films[Math.floor Math.random() * filtered_films.length]
+movie_type = null
+max_date = null
 
+reset_variables = () ->
+    movie_type = null
+    max_date = null
+
+recommend = (msg) ->
+    filtered_films = films.data
+
+    if movie_type is not null
+        filtered_films = filtered_films.filter((item) -> item.type == movie_type)
+    if max_date is not null
+        filtered_films = filtered_films.filter((item) -> item.year < max_date)
+
+    recommendation = filtered_films[Math.floor Math.random() * filtered_films.length]
     msg.send "I can recommend \"#{recommendation.title}\"\n"
+
+    # some dates are NaN or have typos/strange values
+    if recommendation.year > 1200
+        msg.send "It came out in #{recommendation.year}\n"
+
     if recommendation.text_en.length > 0
         msg.send "Here's a short description: "
         msg.send "#{recommendation.text_en}"
 
-send_attachment = (item, msg) ->
+    reset_variables()
+
+send_attachment = (msg, item) ->
     msg.send(
       attachments: [
         {
@@ -44,10 +64,51 @@ send_attachment = (item, msg) ->
       ]
     )
 
+pick_production_date = (msg, dialog) ->
+    msg.send "Pick a date for the latest year of production\n
+              (I want a movie made before 1980, for example)"
+
+    dialog.addChoice /(18|19|20)([0-9]{2})/, (res) ->
+        max_date = res.match[0]
+        msg.send "And you want a movie made before #{max_date}"
+        recommend msg
+
+    dialog.addChoice "(.*)", (res) ->
+        msg.reply "I don't know of any movies made before #{res.match[0]}"
+        pick_production_date msg, dialog
+
+pick_movie_type = (msg, dialog) ->
+    msg.send "From these choices, what type of movie would you like to see?"
+    msg.send "#{movie_types.join(', ')}"
+
+    dialog.addChoice "#{movie_types.join('|')}", (res) ->
+        movie_type = res.match[0]
+        msg.send "Okay, you want to watch a #{movie_type}"
+        pick_production_date msg, dialog
+
+    dialog.addChoice "(.*)", (res) ->
+        msg.reply "Hmmm, try another type. I don't know about \"#{res.match[0]}\""
+        pick_movie_type switchboard, msg
+
+start_recommendation = (switchboard, msg) ->
+    dialog = switchboard.startDialog msg
+    pick_movie_type msg, dialog
+
 module.exports = (robot) ->
+
+  switchboard = new Conversation robot
+
   robot.respond /(I'm|I am) (looking|searching) for a movie( recommendation|.*)/i, (msg) ->
-    msg.send "Great, let me know what type of movie you'd like a recommendation for"
-    msg.send "I am familiar with several types of movie like #{movie_types.join(', ')}"
+    msg.send "Great, I'll ask a few questions to determine a recommendation"
+    if films is null
+        msg.http(lichtspiel_url)
+          .header('Accept', 'application/csv')
+          .get() (err, res, body) ->
+            films = Papa.parse body, { header: true }
+            start_recommendation switchboard, msg
+
+    else
+        start_recommendation switchboard, msg
 
   robot.respond /I (want|would like) to watch a (.*)/i, (msg) ->
 
@@ -61,13 +122,15 @@ module.exports = (robot) ->
               .header('Accept', 'application/csv')
               .get() (err, res, body) ->
                 films = Papa.parse body, { header: true }
-                recommend movie_type, msg
+                recommend msg
         else
-            recommend movie_type, msg
+            recommend msg
 
     else
         msg.reply "Sorry, I'm not familiar with \"#{movie_type}\""
         msg.reply "I am familiar with #{movie_types.join(', ')}"
+
+    reset_variables()
 
   robot.respond /(flix)/i, (msg) ->
         if films is null
@@ -78,11 +141,11 @@ module.exports = (robot) ->
 
                 item = films.data[Math.floor Math.random() * films.data.length]
                 console.log(item)
-                send_attachment item, msg
+                send_attachment msg, item
         else
             item = films.data[Math.floor Math.random() * films.data.length]
             console.log(item)
-            send_attachment item, msg
+            send_attachment msg, item
 
         setTimeout () ->
           msg.send ":movie_camera: Enjoy this finest reel this evening only at the Lichtspiel!"
