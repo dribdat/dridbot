@@ -45,7 +45,9 @@ send_attachment = (item, msg) ->
     )
 
 module.exports = (robot) ->
-  robot.respond /I want to watch a (.*)/i, (msg) ->
+  robot.respond /(I'm|I am) (looking|searching) for a movie( recommendation|.*)/i, (msg) ->
+    msg.send "Great, let me know what type of movie you'd like a recommendation for"
+    msg.send "I am familiar with several types of movie like #{movie_types.join(', ')}"
 
   robot.respond /I (want|would like) to watch a (.*)/i, (msg) ->
 
