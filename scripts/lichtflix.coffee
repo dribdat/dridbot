@@ -37,8 +37,9 @@ module.exports = (robot) ->
             filtered_films = films.data.filter((item) -> item.type == movie_type)
             recommendation = filtered_films[Math.floor Math.random() * filtered_films.length]
             msg.send "I can recommend \"#{recommendation.title}\"\n"
-            msg.send "Here's a short description: "
-            msg.send "#{recommendation.text_en}"
+            if recommendation.text_en.length > 0
+                msg.send "Here's a short description: "
+                msg.send "#{recommendation.text_en}"
 
     else
         msg.reply "Sorry, I'm not familiar with \"#{movie_type}\""
