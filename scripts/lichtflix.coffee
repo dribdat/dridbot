@@ -117,7 +117,7 @@ pick_movie_type = (msg, dialog) ->
 
     dialog.addChoice "(.*)", (res) ->
         msg.reply "Hmmm, try another type. I don't know about \"#{res.match[0]}\""
-        pick_movie_type switchboard, msg
+        pick_movie_type msg, dialog
 
 start_recommendation = (switchboard, msg) ->
     if films is null
