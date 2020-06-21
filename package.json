@@ -20,6 +20,7 @@
     "ckan": "*",
     "coffeescript": "^1",
     "hubot": "^3",
+    "hubot-conversation": "^1.1.1",
     "hubot-help": "^1",
     "hubot-heroku-keepalive": "^1",
     "hubot-redis-brain": "^1",
