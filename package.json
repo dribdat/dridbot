@@ -1,6 +1,6 @@
 {
   "name": "dridbot",
-  "version": "0.1.0",
+  "version": "0.1.5",
   "private": true,
   "author": "Datalets",
   "license": "MIT",
@@ -25,15 +25,15 @@
     "hubot-heroku-keepalive": "^1",
     "hubot-redis-brain": "^1",
     "hubot-shell": "^1",
-    "hubot-slack": "^4",
-    "lodash": "^4",
-    "moment": "^2",
-    "papaparse": "^5.2.0",
-    "tracer": "^1"
+    "hubot-slack": "^4.9.0",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.1",
+    "papaparse": "^5.3.0",
+    "tracer": "^1.1.4"
   },
   "main": "index.coffee",
   "engines": {
-    "node": "12.x",
+    "node": "14.x",
     "yarn": "1.x"
   },
   "contributors": [
