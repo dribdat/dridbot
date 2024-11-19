@@ -1,6 +1,10 @@
 # dridbot
 
-A.k.a. "Dr. ID" or just _dri_, is a chat bot built on the [Hubot][hubot] framework, useful for pepping up the experience for participants and organizers of hackathons.
+A.k.a. "Dr. ID" or just _dri_, is a chat bot built on the [Hubot][hubot] framework, useful for pepping up the experience for participants and organizers of hackathons that run on [Dribdat](https://github.com/dribdat).
+
+🚧 Currently not actively maintained, due to (ha ha) time constraints 🚧
+
+🤗 Chat with [Aletsdat on HuggingFace](https://hf.co/chat/assistant/660578d574227b0eec8fb85d), an A.I. hackathon assistant that incorporates the Dribdat guidelines 🤗
 
 ![](https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.M55Dz6e9guchDuEpTfkBTwHaE8%26pid%3DApi&f=1)
 
